@@ -14,5 +14,5 @@ An e-commerce website specializing in fresh staple food items including rice, wh
 
 **Client:** HTML, CSS
 
-**Server:** Django
+**Server:** Django, MySQL
 
