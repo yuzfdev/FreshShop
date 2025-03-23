@@ -1,18 +1,72 @@
+# FreshShop 🌾
 
-# FreshShop
-An e-commerce website specializing in fresh staple food items including rice, wheat, and other pantry essentials.
+## Overview
+FreshShop is a comprehensive e-commerce platform specializing in high-quality staple food items including rice, wheat, pulses, and other essential pantry products. Our platform connects consumers directly with trusted suppliers to ensure freshness and quality in every purchase.
 
-## Features
+## 🌟 Key Features
 
-- Browse catalog of fresh staple foods
-- Detailed product information with pricing
-- Shopping cart functionality
-- User-friendly checkout process
-- Responsive design for desktop and mobile users
+### Customer Experience
+- **Real-time Stock Updates**: Shows in-stock, low-stock, or out-of-stock status for all products
+- **Shopping Cart & Wishlist**: Easily save and purchase your favorite items
 
-## Tech Stack
+### Technical Features
+- **Responsive Design**: Seamless experience across desktop, tablet, and mobile devices
+- **User Authentication**: Secure login/signup with email verification
+- **Order Management**: Track and manage current and past orders
+- **Performance Optimization**: Fast loading times and efficient database queries
 
-**Client:** HTML, CSS
+## 💻 Tech Stack
 
-**Server:** Django, MySQL
+### Frontend
+- **HTML5/CSS3**: Modern, semantic markup with advanced styling
+- **Bootstrap 5**: Responsive grid system and UI components
 
+### Backend
+- **Django**: Robust Python web framework with built-in security features
+
+### Database
+- **MySQL 8.0**: Reliable relational database for product and user data storage
+
+## 📊 Database Schema
+
+### Core Models
+- **Product**: name, category, description, price, stock, image
+- **User**: username, email, password
+- **Cart**: user, products, quantity
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+- Python 3.9+
+- pip
+- virtualenv
+- MySQL
+
+### Local Development Setup
+```bash
+# Clone the repository
+git clone https://github.com/yuzfdev/FreshShop.git
+cd freshshop
+
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install django mysqlclient pillow
+
+# Configure database
+# Edit settings.py with your database credentials
+
+# Run migrations
+python manage.py migrate
+
+# Create superuser
+python manage.py createsuperuser
+
+# Load demo data (optional)
+python manage.py loaddata demo_data.json
+
+# Start development server
+python manage.py runserver
+```
