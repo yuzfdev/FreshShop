@@ -46,7 +46,7 @@ FreshShop is a comprehensive e-commerce platform specializing in high-quality st
 ```bash
 # Clone the repository
 git clone https://github.com/yuzfdev/FreshShop.git
-cd freshshop
+cd FreshShop
 
 # Create and activate virtual environment
 python -m venv venv
