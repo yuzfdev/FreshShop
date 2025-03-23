@@ -2,49 +2,349 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Books</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - FreshShop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-bottom: 3rem;
+        }
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%) !important;
+            margin-bottom: 2rem;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+        .cart-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .cart-header {
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .cart-item {
+            border-bottom: 1px solid #f3f3f3;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        .cart-item:hover {
+            background-color: #f9f9f9;
+        }
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .cart-item-price {
+            font-weight: bold;
+            color: #43a047;
+        }
+        .cart-item-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .quantity-input {
+            width: 70px;
+            text-align: center;
+            border-radius: 20px;
+            border: 1px solid #ced4da;
+        }
+        .action-btn {
+            border-radius: 20px;
+            padding: 0.375rem 1rem;
+            font-weight: 500;
+        }
+        .btn-update {
+            background-color: #2196f3;
+            color: white;
+            border: none;
+        }
+        .btn-update:hover {
+            background-color: #0d8aee;
+            color: white;
+        }
+        .btn-remove {
+            background-color: transparent;
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+        .btn-remove:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+        .cart-summary {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        .summary-total {
+            border-top: 2px solid #dee2e6;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .checkout-btn {
+            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+            border: none;
+            border-radius: 30px;
+            padding: 0.75rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        .checkout-btn:hover {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.4);
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 0;
+        }
+        .empty-cart i {
+            font-size: 4rem;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+        }
+        .continue-shopping {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            color: #495057;
+            border-radius: 30px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .continue-shopping:hover {
+            background-color: #e9ecef;
+            color: #212529;
+        }
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        @media (max-width: 767.98px) {
+            .cart-item-image {
+                width: 80px;
+                height: 80px;
+            }
+            .cart-container {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm bg-light justify-content-center">
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="/home">Home</a>
-    </li>
-      <li class="nav-item">
-      <a class="nav-link" href="/logout">logout</a>
-    </li>
-      <li class="nav-item">
-      <a class="nav-link" href="/view_cart">Cart</a>
-    </li>
-  </ul>
-</nav>
-    <div style="display:flex;">
-{% for x in data %}
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/home">FreshShop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">
+                            <i class="bi bi-house-door me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products/">
+                            <i class="bi bi-grid me-1"></i>Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-star me-1"></i>Deals
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/view_cart">
+                            <i class="bi bi-cart3 me-1"></i>Cart
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">
+                            <i class="bi bi-box-arrow-right me-1"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-  <div class="card" style="width: 18rem; margin-right: 2em;">
-      <img src="{{x.product_id.image.url}}" class="img-fluid rounded-start" alt="{{x.product_id.image.url}}">
-      <div class="card-body">
-        <h5 class="card-title">{{ x.product_id.name }}</h5>
-        <p class="card-text">{{ x.product_id.description }}</p>
-          <p class="card-text">₹{{ x.product_id.price }}</p>
-          <form action="/remove_from_cart/{{x.id}}/" method="post">
-              {% csrf_token %}
-              <input type="submit" value="Remove" class="btn btn-primary">
-          </form>
-          <form action="/update_cart/{{x.id}}/" method="post">
-              {% csrf_token %}
-              <input style="width:60px;" type="number" name="quantity" value="{{x.quantity}}" class="form-control">
-              <input type="submit" value="Update" class="btn btn-primary">
-          </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-4"><i class="bi bi-cart3 me-2"></i>Shopping Cart</h2>
+            </div>
+        </div>
 
-      </div>
+        {% if data %}
+        <div class="row">
+            <!-- Cart Items -->
+            <div class="col-lg-8 mb-4">
+                <div class="cart-container">
+                    <div class="cart-header d-flex justify-content-between">
+                        <h5 class="mb-0">Your Items ({{ data|length }})</h5>
+                        <a href="/home" class="text-decoration-none">
+                            <i class="bi bi-arrow-left me-1"></i>Continue Shopping
+                        </a>
+                    </div>
+
+                    {% for x in data %}
+                    <div class="cart-item row align-items-center">
+                        <div class="col-md-2 col-4 mb-2 mb-md-0">
+                            <img src="{{x.product_id.image.url}}" class="cart-item-image" alt="{{x.product_id.name}}">
+                        </div>
+                        <div class="col-md-5 col-8 mb-2 mb-md-0">
+                            <h5 class="cart-item-title">{{ x.product_id.name }}</h5>
+                            <p class="cart-item-description mb-1">{{ x.product_id.description|truncatechars:60 }}</p>
+                            <p class="cart-item-price mb-0">₹{{ x.product_id.price }}</p>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <form action="/update_cart/{{x.id}}/" method="post" class="d-flex align-items-center">
+                                {% csrf_token %}
+                                <input type="number" min="1" name="quantity" value="{{x.quantity}}" class="form-control quantity-input me-2">
+                                <button type="submit" class="btn btn-update action-btn">
+                                    <i class="bi bi-arrow-repeat me-1"></i>Update
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-md-2 col-6 text-end">
+                            <form action="/remove_from_cart/{{x.id}}/" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-remove action-btn">
+                                    <i class="bi bi-trash me-1"></i>Remove
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+                <div class="cart-container">
+                    <h5 class="mb-4">Order Summary</h5>
+                    <div class="cart-summary">
+                        <div class="summary-item">
+                            <span>Subtotal ({{ data|length }} items)</span>
+                            <span>₹{{ total }}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Shipping</span>
+                            <span>Free</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Tax</span>
+                            <span>₹0</span>
+                        </div>
+                        <div class="summary-item summary-total">
+                            <span>Total</span>
+                            <span>₹{{ total }}</span>
+                        </div>
+                        <a href="/checkout" class="btn checkout-btn">
+                            <i class="bi bi-lock-fill me-2"></i>Proceed to Checkout
+                        </a>
+                    </div>
+
+                    <div class="mt-4">
+                        <h6 class="mb-2">We Accept</h6>
+                        <div class="d-flex gap-2">
+                            <i class="bi bi-credit-card fs-4"></i>
+                            <i class="bi bi-paypal fs-4"></i>
+                            <i class="bi bi-wallet2 fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="cart-container empty-cart">
+                    <i class="bi bi-cart-x"></i>
+                    <h3>Your cart is empty</h3>
+                    <p class="text-muted">Looks like you haven't added any items to your cart yet.</p>
+                    <a href="/home" class="btn continue-shopping mt-3">
+                        <i class="bi bi-arrow-left me-2"></i>Continue Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 
-
-{% endfor %}
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>FreshShop</h5>
+                    <p class="mb-0">Fresh quality stationery for everyone.</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="#" class="text-white">About Us</a></li>
+                        <li><a href="#" class="text-white">Contact</a></li>
+                        <li><a href="#" class="text-white">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p class="mb-0"><i class="bi bi-envelope me-2"></i>support@freshshop.com</p>
+                    <p class="mb-0"><i class="bi bi-telephone me-2"></i>+1 (555) 123-4567</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 FreshShop. All rights reserved.</p>
+            </div>
         </div>
-<a href="/checkout" class="btn btn-primary">Checkout</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

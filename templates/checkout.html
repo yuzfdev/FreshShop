@@ -3,49 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Checkout Page</title>
+    <title>FreshShop - Checkout</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #12af6b;
+            --secondary: #f8f9fa;
+            --accent: #ff6b6b;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .checkout-header {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            border-radius: 10px 10px 0 0 !important;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        th {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: #0e8d56;
+            border-color: #0e8d56;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .quantity-input {
+            max-width: 80px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .product-total {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        #grandTotal {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .action-button {
+            border-radius: 50px;
+            padding: 8px 25px;
+        }
+
+        .continue-shopping {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .continue-shopping:hover {
+            color: var(--primary);
+        }
+
+        .checkout-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .item-remove {
+            color: var(--accent);
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 15px 0;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-pencil-ruler me-2"></i>FreshShop
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home/"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products/"><i class="fas fa-store me-1"></i> Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/view_cart/"><i class="fas fa-shopping-cart me-1"></i> Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Content -->
+    <div class="container my-5">
+        <!-- Breadcrumb -->
+
+        <div class="checkout-header">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-clipboard-check checkout-icon"></i>
+                <h2 class="mb-0">Complete Your Purchase</h2>
+            </div>
+            <p class="text-muted mt-2 mb-0">Please review your order before proceeding to payment</p>
+        </div>
+
         <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h2 class="mb-4">Checkout</h2>
+            <!-- Order Summary -->
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0"><i class="fas fa-shopping-basket me-2"></i>Your Order Items</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Product</th>
+                                        <th class="text-center">Price</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-end">Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productList">
+                                    {% for x in data %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0">
+                                                    <div class="bg-light rounded" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                                                        <i class="fas fa-pencil-alt text-secondary"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <strong>{{x.product_id.name}}</strong>
+                                                    <div class="small text-muted">SKU: FRS-{{x.id}}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center align-middle">${{x.product_id.price}}</td>
+                                        <td class="text-center align-middle">
+                                            <div class="input-group quantity-input mx-auto" style="width: 120px;">
+                                                <button class="btn btn-sm btn-outline-secondary" type="button">-</button>
+                                                <input type="number" value="{{x.quantity}}" min="1" class="form-control text-center" onchange="update_cart/{{x.id}}/">
+                                                <button class="btn btn-sm btn-outline-secondary" type="button">+</button>
+                                            </div>
+                                        </td>
+                                        <td class="text-end align-middle product-total">${{x.product_total}}</td>
+                                        <td class="align-middle">
+                                            <i class="fas fa-times item-remove"></i>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="#" class="continue-shopping">
+                                <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+                            </a>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-sync-alt me-2"></i>Update Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Total -->
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0"><i class="fas fa-receipt me-2"></i>Order Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="summary-item">
+                            <span>Subtotal</span>
+                            <span>${{total}}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Shipping</span>
+                            <span>Free</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Tax</span>
+                            <span>$0.00</span>
+                        </div>
+                        <hr>
+                        <div class="summary-item">
+                            <strong>Order Total</strong>
+                            <strong id="grandTotal">${{total}}</strong>
+                        </div>
+
+                        <div class="mt-4">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Promo code">
+                                <button class="btn btn-outline-primary" type="button">Apply</button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary w-100 action-button mt-2">
+                            <i class="fas fa-lock me-2"></i>Proceed to Payment
+                        </button>
+
+                        <div class="d-flex justify-content-center mt-3">
+                            <img src="/api/placeholder/240/30" alt="Payment methods" class="img-fluid">
+                        </div>
+
+                        <div class="small text-center text-muted mt-3">
+                            <i class="fas fa-shield-alt me-1"></i> Secure checkout. All information is encrypted
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Product Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="productList">
-                                {% for x in data %}
-                                <tr>
-                                    <td>{{x.product_id.name}}</td>
-                                    <td>{{x.product_id.price}}</td>
-                                    <td>
-                                        <input type="number" value="{{x.quantity}}" class="form-control quantity-input" onchange="update_cart/{{x.id}}/">
-                                    </td>
-                                    <td class="product-total">{{x.product_total}}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3" class="text-end"><strong>Grand Total:</strong></td>
-                                    <td id="grandTotal">{{total}}</td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        <h6 class="mb-3"><i class="fas fa-question-circle me-2"></i>Need Help?</h6>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-phone-alt me-3 text-muted"></i>
+                            <div>
+                                <div class="small text-muted">Call us at</div>
+                                <strong>1-800-FRESHOP</strong>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-envelope me-3 text-muted"></i>
+                            <div>
+                                <div class="small text-muted">Email us at</div>
+                                <strong>support@freshop.com</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <div>&copy; 2025 FreshShop Stationery. All rights reserved.</div>
+            <div class="small">Quality stationery for all your creative needs</div>
+        </div>
+    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

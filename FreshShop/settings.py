@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'freshshop',
         'USER': 'root',
-        'PASSWORD': 'Jjsh@5371',
+        'PASSWORD': 'Jjsh5371',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {

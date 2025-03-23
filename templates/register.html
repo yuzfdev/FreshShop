@@ -3,45 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Register - FreshShop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .register-container {
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%);
+            padding: 1.5rem 1rem;
+            border-bottom: none;
+        }
+        .logo {
+            max-width: 200px;
+            margin-bottom: 15px;
+        }
+        .form-control {
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(67, 160, 71, 0.25);
+            border-color: #43a047;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-success:hover {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.4);
+        }
+        .btn-outline-primary {
+            border-color: #1976d2;
+            color: #1976d2;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-primary:hover {
+            background-color: #1976d2;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .form-label {
+            font-weight: 500;
+            color: #555;
+        }
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-right: none;
+        }
+        .password-toggle {
+            cursor: pointer;
+            border-left: none;
+        }
+        .password-requirements {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        .password-requirement {
+            margin-bottom: 0.2rem;
+        }
+        .password-requirement i {
+            width: 1.2rem;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h3>Register</h3>
-                    </div>
-                    <div class="card-body">
-                        {% if error %}
-                            <div class="alert alert-danger" role="alert">
-                                {{ error }}
-                            </div>
-                        {% endif %}
-                        <form method="POST">
-                            {% csrf_token %}
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Register</button>
-                        </form>
-                    </div>
-                </div>
+    <div class="container register-container">
+        <div class="card">
+            <div class="card-header text-center text-white">
+                <h1 class="mb-0">FreshShop</h1>
+                <p class="mb-0">Fresh quality stationery for everyone</p>
             </div>
+            <div class="card-body p-4">
+                <h4 class="text-center mb-4">Create Your Account</h4>
+
+                {% if error %}
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <div>{{ error }}</div>
+                    </div>
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                        <small class="text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required onkeyup="checkPasswordStrength()">
+                            <button class="input-group-text password-toggle" type="button" onclick="togglePassword()">
+                                <i class="bi bi-eye" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                        <div class="password-requirements mt-2">
+                            <div class="password-requirement"><i class="bi bi-circle" id="length-check"></i> At least 8 characters</div>
+                            <div class="password-requirement"><i class="bi bi-circle" id="capital-check"></i> At least 1 uppercase letter</div>
+                            <div class="password-requirement"><i class="bi bi-circle" id="number-check"></i> At least 1 number</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required onkeyup="checkPasswordMatch()">
+                        </div>
+                        <small id="password-match" class="text-muted">Passwords must match</small>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                        <label class="form-check-label" for="termsCheck">I agree to the <a href="#" class="text-success">Terms of Service</a> and <a href="#" class="text-success">Privacy Policy</a></label>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 mb-3" id="registerBtn">
+                        <i class="bi bi-person-plus me-2"></i>Create Account
+                    </button>
+                    <div class="text-center my-3">
+                        <span class="text-muted">Already have an account?</span>
+                    </div>
+                    <a href="/" class="btn btn-outline-primary w-100">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                    </a>
+                </form>
+            </div>
+        </div>
+        <div class="text-center mt-4 text-muted">
+            <small>&copy; 2025 FreshShop. All rights reserved.</small>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.replace('bi-eye', 'bi-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.replace('bi-eye-slash', 'bi-eye');
+            }
+        }
+
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+
+            // Check length
+            if (password.length >= 8) {
+                document.getElementById('length-check').classList.replace('bi-circle', 'bi-check-circle-fill');
+                document.getElementById('length-check').classList.add('text-success');
+            } else {
+                document.getElementById('length-check').classList.replace('bi-check-circle-fill', 'bi-circle');
+                document.getElementById('length-check').classList.remove('text-success');
+            }
+
+            // Check for uppercase
+            if (/[A-Z]/.test(password)) {
+                document.getElementById('capital-check').classList.replace('bi-circle', 'bi-check-circle-fill');
+                document.getElementById('capital-check').classList.add('text-success');
+            } else {
+                document.getElementById('capital-check').classList.replace('bi-check-circle-fill', 'bi-circle');
+                document.getElementById('capital-check').classList.remove('text-success');
+            }
+
+            // Check for number
+            if (/[0-9]/.test(password)) {
+                document.getElementById('number-check').classList.replace('bi-circle', 'bi-check-circle-fill');
+                document.getElementById('number-check').classList.add('text-success');
+            } else {
+                document.getElementById('number-check').classList.replace('bi-check-circle-fill', 'bi-circle');
+                document.getElementById('number-check').classList.remove('text-success');
+            }
+
+            checkPasswordMatch();
+        }
+
+        function checkPasswordMatch() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const matchText = document.getElementById('password-match');
+
+            if (confirmPassword === '') {
+                matchText.className = 'text-muted';
+                matchText.textContent = 'Passwords must match';
+            } else if (password === confirmPassword) {
+                matchText.className = 'text-success';
+                matchText.textContent = 'Passwords match!';
+            } else {
+                matchText.className = 'text-danger';
+                matchText.textContent = 'Passwords do not match';
+            }
+        }
+    </script>
 </body>
 </html>

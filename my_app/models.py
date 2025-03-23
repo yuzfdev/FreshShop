@@ -15,6 +15,8 @@ class Products_table(models.Model):
     name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
+    category = models.CharField(max_length=30, default="none")
+    stock = models.IntegerField(default=1)
     image = models.ImageField(upload_to='products/')
 
     class Meta:

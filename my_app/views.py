@@ -3,27 +3,11 @@ from.models import User_table, Products_table, Cart_table
 
 # Create your views here.
 def home(request):
-    products = Products_table.objects.all()
+    products = Products_table.objects.all()[:4]
     if products:
         return render(request, 'home.html',{'data':products})
     else:
         return render(request, 'home.html')
-
-def add_product(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        description = request.POST.get('description')
-        price = request.POST.get('price')
-        image = request.FILES['image']
-        product = Products_table(name=name, price=price, description=description, image=image)
-        product.save()
-        return redirect('/home')
-    return render(request, 'add_product.html')
-
-# def delete_product(request, id):
-#     product = Products_table.objects.get(id=id)
-#     product.delete()
-#     return redirect('/home')
 
 def register(request):
     if request.method == 'POST':
@@ -56,6 +40,10 @@ def login(request):
 def logout(request):
     del request.session['user_id']
     return redirect('/')
+
+def all_products(request):
+    products = Products_table.objects.all()
+    return render(request, 'all_product.html', {'data': products})
 
 def add_to_cart(request, pid):
     if 'user_id' in request.session:
@@ -98,10 +86,10 @@ def update_cart(request, id):
 def view_cart(request):
     if 'user_id' in request.session:
         cart_obj = Cart_table.objects.filter(user_id=request.session['user_id'])
-        # total = 0
-        # for item in cart_obj:
-        #     total += item.product_id.price * item.quantity
-        return render(request, 'view_cart.html', {'data': cart_obj})
+        total = 0
+        for item in cart_obj:
+            total += item.product_id.price * item.quantity
+        return render(request, 'view_cart.html', {'data': cart_obj, 'total': total})
     else:
         return redirect('/')
 
