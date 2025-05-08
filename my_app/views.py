@@ -41,8 +41,17 @@ def logout(request):
     del request.session['user_id']
     return redirect('/')
 
-def all_products(request):
+def all_products(request,cat):
     products = Products_table.objects.all()
+    if cat == 'notebook':
+        products = Products_table.objects.filter(category='notebook')
+        return render(request, 'products.html', {'data': products})
+    elif cat == 'pen&pencil':
+        products = Products_table.objects.filter(category='pen')
+        return render(request, 'products.html', {'data': products})
+    elif cat =='art':
+        products = Products_table.objects.filter(category='mouse')
+        return render(request, 'products.html', {'data': products})
     return render(request, 'all_product.html', {'data': products})
 
 def add_to_cart(request, pid):
