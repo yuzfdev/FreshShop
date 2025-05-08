@@ -10,7 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
+import dj_database_url
+import environ
 from pathlib import Path
+
+#Load environmental varibles
+env = environ.Env()
+environ.Env.read_env(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,19 +81,16 @@ WSGI_APPLICATION = 'FreshShop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'freshshop',
-        'USER': 'root',
-        'PASSWORD': 'Jjsh5371',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+# Read DATABASE_URL
+db_from_env = dj_database_url.config(default=env('DATABASE_URL'), conn_max_age=600, ssl_require=False)
 
-    }
+# Manually add any extra options
+db_from_env['OPTIONS'] = {
+    'options': '-c search_path=django,public'
+}
+
+DATABASES = {
+    'default': db_from_env
 }
 
 
