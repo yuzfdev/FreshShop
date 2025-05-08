@@ -1,7 +1,7 @@
 # FreshShop 🌾
 
 ## Overview
-FreshShop is a comprehensive e-commerce platform specializing in high-quality staple food items including rice, wheat, pulses, and other essential pantry products. Our platform connects consumers directly with trusted suppliers to ensure freshness and quality in every purchase.
+FreshSop is a comprehensive e-commerce platform dedicated to providing high-quality art supplies, office essentials, and creative materials. Our platform connects consumers directly with trusted suppliers to ensure freshness and quality in every purchase.
 
 ## 🌟 Key Features
 
