@@ -1,72 +1,79 @@
-# FreshShop 🌾
+# **FRESHSHOP**
+
+_Elevate your creativity with fresh, quality supplies._
+
+![Last Commit](https://img.shields.io/badge/last%20commit-may-informational?style=flat)
+![HTML](https://img.shields.io/badge/html-81.8%25-blue?style=flat)
+![Languages](https://img.shields.io/badge/languages-2-blue?style=flat)
+
+_Built with the tools and technologies:_
+
+![Markdown](https://img.shields.io/badge/-Markdown-black?logo=markdown&logoColor=white)
+![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white)
+
+---
+
+## **Table of Contents**
+
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+---
 
 ## Overview
-FreshSop is a comprehensive e-commerce platform dedicated to providing high-quality art supplies, office essentials, and creative materials. Our platform connects consumers directly with trusted suppliers to ensure freshness and quality in every purchase.
 
-## 🌟 Key Features
+FreshShop ia a powerful e-commerce platform tailored for art supplies, connecting with trusted suppliers to ensure product freshness and quality
 
-### Customer Experience
-- **Real-time Stock Updates**: Shows in-stock, low-stock, or out-of-stock status for all products
-- **Shopping Cart & Wishlist**: Easily save and purchase your favorite items
+**Why freshShop?**
 
-### Technical Features
-- **Responsive Design**: Seamless experience across desktop, tablet, and mobile devices
-- **User Authentication**: Secure login/signup with email verification
-- **Order Management**: Track and manage current and past orders
-- **Performance Optimization**: Fast loading times and efficient database queries
+This project aims to enhance the online shopping experience for creative materials. The core features incilede:
 
-## 💻 Tech Stack
+- 🎨 **Comprehensive E-commerce Platform**: Connects consumers with trusted suppliers for quality products.
+- 📦 **Real-time Stock Updates**: Keeps customers informed about product availability, enhancing user experience.
+- 🔒 **User Authentication**: Secure login and registration processes to protect user data.
+- 🛒 **Efficient Order Management**: Streamlined processes for managing orders, improving operational efficiency.
+- 📱 **Responsive Design**: Ensures a seamless shopping experience across devices.
+- ⚙️ **Robust Tech Stack**: Built on Django with ASGI support for high performance and scalability.
 
-### Frontend
-- **HTML5/CSS3**: Modern, semantic markup with advanced styling
-- **Bootstrap 5**: Responsive grid system and UI components
 
-### Backend
-- **Django**: Robust Python web framework with built-in security features
-
-### Database
-- **MySQL 8.0**: Reliable relational database for product and user data storage
-
-## 📊 Database Schema
-
-### Core Models
-- **Product**: name, category, description, price, stock, image
-- **User**: username, email, password
-- **Cart**: user, products, quantity
-
-## 🚀 Installation & Setup
+## Getting Started
 
 ### Prerequisites
-- Python 3.9+
-- pip
-- virtualenv
-- MySQL
 
-### Local Development Setup
+The project requires the following dependencies:
+
+-**Programing Language**: Python, HTML, Bootstrap
+-**Package Manager**: pip
+
+### Installation
+
+Build FreshShop from the source and install dependencies:
+1. **Clone the repository**:
+
+    ```bash
+    git clone https://github.com/yuzfdev/FreshShop
+    ```
+
+2. **Navigate to the project directory**:
+
+    ```bash
+    cd FreshShop
+    ```
+
+3. **Install the dependencies**:
+
+    Using [pip](https://pip.pypa.io/en/stable/):
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Usage
+
+Run the project with
+
 ```bash
-# Clone the repository
-git clone https://github.com/yuzfdev/FreshShop.git
-cd FreshShop
-
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install django mysqlclient pillow
-
-# Configure database
-# Edit settings.py with your database credentials
-
-# Run migrations
-python manage.py migrate
-
-# Create superuser
-python manage.py createsuperuser
-
-# Load demo data (optional)
-python manage.py loaddata demo_data.json
-
-# Start development server
-python manage.py runserver
+py manage.py runserver
 ```
